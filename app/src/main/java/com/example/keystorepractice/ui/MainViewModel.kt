@@ -4,14 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.keystorepractice.data.repository.AuthRepositoryImpl
 import com.example.keystorepractice.domain.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
-    private val repository: AuthRepository = AuthRepositoryImpl(),
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: AuthRepository
 ) : ViewModel() {
     private val _token = MutableStateFlow<String?>(null)
     val token = _token.asStateFlow()
