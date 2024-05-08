@@ -44,6 +44,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val token by viewModel.token.collectAsState()
                     MainActivityBody(token = token, onSignInButtonClick = viewModel::signIn)
+
+                    token?.let { viewModel.saveToken(it) }
                 }
             }
         }
