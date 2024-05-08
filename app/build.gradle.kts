@@ -76,4 +76,6 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     ksp("com.google.dagger:hilt-compiler:2.51.1")
+
+    implementation("androidx.security:security-crypto:1.0.0")
 }
