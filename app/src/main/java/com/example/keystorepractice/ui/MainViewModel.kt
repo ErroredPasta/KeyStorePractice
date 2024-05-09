@@ -31,6 +31,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun secureSignIn(id: String, pw: String) {
+        viewModelScope.launch(exceptionHandler) {
+            _token.update { repository.secureSignIn(id, pw) }
+        }
+    }
+
     fun saveToken(token: String) {
         viewModelScope.launch {
             preferenceRepository.saveToken(token)

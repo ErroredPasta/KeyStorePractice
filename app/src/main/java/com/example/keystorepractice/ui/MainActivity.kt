@@ -43,7 +43,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val token by viewModel.token.collectAsState()
-                    MainActivityBody(token = token, onSignInButtonClick = viewModel::signIn)
+                    MainActivityBody(
+                        token = token,
+                        onSignInButtonClick = viewModel::signIn,
+                        onSecureSignInButtonClick = viewModel::secureSignIn
+                    )
 
                     token?.let { viewModel.saveToken(it) }
                 }
@@ -56,6 +60,7 @@ class MainActivity : ComponentActivity() {
 fun MainActivityBody(
     token: String?,
     onSignInButtonClick: (id: String, pw: String) -> Unit,
+    onSecureSignInButtonClick: (id: String, pw: String) -> Unit,
 ) {
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
@@ -82,6 +87,10 @@ fun MainActivityBody(
             Text(text = "Sign In")
         }
 
+        Button(onClick = { onSecureSignInButtonClick(id, pw) }) {
+            Text(text = "Secure Sign In")
+        }
+
         if (token != null) {
             Log.d("token", token)
             Text(text = "token is $token")
@@ -93,6 +102,10 @@ fun MainActivityBody(
 @Composable
 private fun MainActivityBodyPreview() {
     KeyStorePracticeTheme {
-        MainActivityBody(token = "", onSignInButtonClick = { _, _ -> })
+        MainActivityBody(
+            token = "",
+            onSignInButtonClick = { _, _ -> },
+            onSecureSignInButtonClick = { _, _ -> },
+        )
     }
 }
